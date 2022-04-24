@@ -30,6 +30,16 @@ function Place(location, landmarks, capitol, season) {
 
 let placesDataBase = new PlacesDataBase();
 
+function displayPlaceDetails(placesBookToDisplay) {
+  let placesList = $("ul#placesGone");
+  let htmlForPlacesInfo = "";
+  Object.keys(placesBookToDisplay.places).forEach(function (key) {
+    const place = placesBookToDisplay.findPlace(key);
+    htmlForPlacesInfo += "<li id=" + place.id + ">" + place.location + " " + place.landmarks + " " + place.capitol + " " + place.season + " </li>";
+  });
+  placesList.html(htmlForPlacesInfo);
+}
+
 $(document).ready(function () {
   $("form#new-place").submit(function (event) {
     event.preventDefault();
@@ -39,6 +49,6 @@ $(document).ready(function () {
     const newSeason = $("input#new-season").val();
     let newPlace = new Place(newLocation, newLandmark, newCapitol, newSeason);
     placesDataBase.addPlace(newPlace);
-    console.log(placesDataBase.place);
+    displayPlaceDetails(placesDataBase);
   });
 })
